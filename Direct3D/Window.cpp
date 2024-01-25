@@ -1,6 +1,7 @@
 #include "Window.h"
-#include <sstream>
 #include "resource.h"
+#include "Keyboard.h"
+#include <sstream>
 
 // Window Class
 Window::WindowClass Window::WindowClass::wndClass;
@@ -120,6 +121,29 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		return 0;
+	
+	// clear keystate when window loses focus
+	case WM_KILLFOCUS:
+		kbd.ClearState();
+		break;
+
+	/**** KEYBOARD MESSAGES ****/
+	case WM_KEYDOWN:
+	case WM_SYSKEYDOWN: // for example, ALT, is a syskey (VM_MENU)
+		if ( !(lParam & 0x40000000) || kbd.AutorepeatIsEnabled()) // filter autorepeat
+		{
+			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+		}
+		break;
+	case WM_KEYUP:
+	case WM_SYSKEYUP:
+		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+		break;
+	case WM_CHAR:
+		kbd.OnChar(static_cast<unsigned char>(wParam));
+		break;
+	/**** END KEYBOARD MESSAGES ****/
+
 	}
 
 	// default window process behavior
