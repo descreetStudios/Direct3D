@@ -1,5 +1,6 @@
 #include "Window.h"
 #include <cstdlib>
+#include <sstream>
 
 int CALLBACK WinMain(
 	_In_ HINSTANCE hInstance,
@@ -19,10 +20,70 @@ int CALLBACK WinMain(
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+
+			/* WHEEL TEST
+			static int i = 0;
+			while (!wnd.mouse.IsEmpty())
+			{
+				const auto e = wnd.mouse.Read();
+				switch (e.GetType())
+				{
+				case Mouse::Event::Type::WheelUp:
+					i++;
+					{
+						std::ostringstream oss;
+						oss << "Up: " << i;
+						wnd.SetTitle(oss.str());
+					}
+					break;
+				case Mouse::Event::Type::WheelDown:
+					i--;
+					{
+						std::ostringstream oss;
+						oss << "Down: " << i;
+						wnd.SetTitle(oss.str());
+					}
+					break;
+				}
+			}
+
+			IN WINDOW TEST
+			while (!wnd.mouse.IsEmpty())
+			{
+				const auto e = wnd.mouse.Read();
+				switch (e.GetType())
+				{
+				case Mouse::Event::Type::Leave:
+					wnd.SetTitle("Gone!");
+					break;
+				case Mouse::Event::Type::Move:
+					{
+						std::ostringstream oss;
+						oss << "Mouse moved to: (" << e.GetPosX() << "," << e.GetPosY() << ")";
+						wnd.SetTitle(oss.str());
+					}
+					break;
+				}
+			}
+
+		    MOUSE POSITION TEST
+			while (!wnd.mouse.IsEmpty())
+			{
+				const auto e = wnd.mouse.Read();
+				if (e.GetType() == Mouse::Event::Type::Move)
+				{
+					std::ostringstream oss;
+					oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")";
+					wnd.SetTitle(oss.str());
+				}
+			}
+
+			KEY PRESS TEST
 			if (wnd.kbd.KeyIsPressed(VK_MENU))
 			{
 				MessageBox(nullptr, "Something Happened!", "Space Key Was Pressed", MB_OK | MB_ICONEXCLAMATION);
 			}
+			*/
 		}
 
 		if (gResult == -1)
@@ -31,7 +92,7 @@ int CALLBACK WinMain(
 		}
 
 		// wParam is the value passed to PostQuitMessage
-		return msg.wParam;
+		return (int)msg.wParam;
 	}
 	catch (const ExceptionHandling& e)
 	{
