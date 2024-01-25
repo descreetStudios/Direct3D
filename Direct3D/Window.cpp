@@ -126,7 +126,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-// Window Exception Handling
+// Window Exceptions Handling
 Window::Exception::Exception(int line, const char* file, HRESULT hr) noexcept
 	:
 	ExceptionHandling(line, file),
