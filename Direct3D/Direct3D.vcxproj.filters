@@ -33,6 +33,12 @@
     <ClCompile Include="App.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FixedWin.h">
@@ -54,6 +60,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="App.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

@@ -80,8 +80,11 @@ Window::Window(int width, int height, const char* name)
 		throw WND_LAST_EXCEPT();
 	}
 
-	// show window
+	// newly created windows start off as hidden
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
+
+	// create graphics object
+	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
@@ -112,6 +115,11 @@ std::optional<int> Window::ProcessMessages()
 		DispatchMessage(&msg);
 	}
 	return {};
+}
+
+Graphics& Window::Gfx()
+{
+	return *pGfx;
 }
 
 LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
